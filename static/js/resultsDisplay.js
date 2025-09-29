@@ -9,6 +9,8 @@ class ResultsDisplay {
         
         resultsHtml += this.generateStepSpecificResults(result, selectedStep);
         
+        resultsHtml += this.generateChartHTML('Chart', result.chart_base64 || '');
+        
         resultsHtml += this.generateDownloadButton(result.output_file);
         
         this.displayResults(resultsHtml);
@@ -50,19 +52,24 @@ class ResultsDisplay {
                 <div class="overflow-x-auto">
                     <table class="min-w-full table-auto border border-gray-200">
                         <thead class="bg-gray-50">
-                            <tr>` +
-                            '<th class="px-4 py-2 text-left text-xs font-medium text-gray-500 uppercase tracking-wider border-r border-gray-200">Feature</th>' +
-                            '<th class="px-4 py-2 text-left text-xs font-medium text-gray-500 uppercase tracking-wider border-r border-gray-200">Missing Count</th>' +
-                            '<th class="px-4 py-2 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Missing %</th>' +
-                            '</tr></thead><tbody class="bg-white divide-y divide-gray-200">' +
-                            `${result.missing_summary.slice(0, 10).map(item => `
+                            <tr>
+                                <th class="px-4 py-2 text-left text-xs font-medium text-gray-500 uppercase tracking-wider border-r border-gray-200">Feature</th>
+                                <th class="px-4 py-2 text-left text-xs font-medium text-gray-500 uppercase tracking-wider border-r border-gray-200">Missing Count</th>
+                                <th class="px-4 py-2 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Missing %</th>
+                            </tr>
+                        </thead>
+                        <tbody class="bg-white divide-y divide-gray-200">
+                            ${result.missing_summary.slice(0, 10).map(item => `
                                 <tr class="hover:bg-gray-50">
                                     <td class="px-4 py-2 whitespace-nowrap text-sm text-gray-900 border-r border-gray-200">${item.feature}</td>
                                     <td class="px-4 py-2 whitespace-nowrap text-sm text-gray-900 border-r border-gray-200">${item.missing_count}</td>
-                                    <td class="px-4 py-2 whitespace-nowrap text-sm text-gray-900">${item.missing_percentage.toFixed(2)}%</td>
+                                    <td class="px-4py-2 whitespace-nowrap text-sm text-gray-900">${item.missing_percentage.toFixed(2)}%</td>
                                 </tr>
-                            `).join('')}` +
-                            '</tbody></table></div></div>';
+                            `).join('')}
+                        </tbody>
+                    </table>
+                </div>
+            </div>`;
     }
 
     generateScalingResults(result) {
@@ -161,21 +168,26 @@ class ResultsDisplay {
                 <div class="overflow-x-auto">
                     <table class="min-w-full table-auto border border-gray-200 mb-4">
                         <thead class="bg-gray-50">
-                            <tr>` +
-                            '<th class="px-4 py-2 text-left text-xs font-medium text-gray-500 uppercase tracking-wider border-r border-gray-200">Row</th>' +
-                            `${displayColumns.map(col => 
-                                '<th class="px-4 py-2 text-left text-xs font-medium text-gray-500 uppercase tracking-wider border-r border-gray-200">' + col + '</th>'
-                            ).join('')}` +
-                            '</tr></thead><tbody class="bg-white divide-y divide-gray-200">' +
-                            `${tableData.slice(0, 5).map(row => `
+                            <tr>
+                                <th class="px-4 py-2 text-left text-xs font-medium text-gray-500 uppercase tracking-wider border-r border-gray-200">Row</th>
+                                ${displayColumns.map(col => 
+                                    '<th class="px-4 py-2 text-left text-xs font-medium text-gray-500 uppercase tracking-wider border-r border-gray-200">' + col + '</th>'
+                                ).join('')}
+                            </tr>
+                        </thead>
+                        <tbody class="bg-white divide-y divide-gray-200">
+                            ${tableData.slice(0, 5).map(row => `
                                 <tr class="hover:bg-gray-50">
                                     <td class="px-4 py-2 whitespace-nowrap text-sm text-gray-900 border-r border-gray-200">${row.row}</td>
                                     ${displayColumns.map(key => 
                                         `<td class="px-4 py-2 whitespace-nowrap text-sm text-gray-900 border-r border-gray-200">${typeof row[key] === 'number' ? row[key].toFixed(6) : row[key]}</td>`
                                     ).join('')}
                                 </tr>
-                            `).join('')}` +
-                            '</tbody></table></div></div>';
+                            `).join('')}
+                        </tbody>
+                    </table>
+                </div>
+            </div>`;
     }
 
     generateFeatureSelectionSummary(result) {
@@ -210,15 +222,17 @@ class ResultsDisplay {
                 <div class="overflow-x-auto">
                     <table class="min-w-full table-auto border border-gray-200">
                         <thead class="bg-gray-50">
-                            <tr>` +
-                            '<th class="px-4 py-2 text-left text-xs font-medium text-gray-500 uppercase tracking-wider border-r border-gray-200">Rank</th>' +
-                            '<th class="px-4 py-2 text-left text-xs font-medium text-gray-500 uppercase tracking-wider border-r border-gray-200">Feature</th>' +
-                            '<th class="px-4 py-2 text-left text-xs font-medium text-gray-500 uppercase tracking-wider border-r border-gray-200">F-Score</th>' +
-                            '<th class="px-4 py-2 text-left text-xs font-medium text-gray-500 uppercase tracking-wider border-r border-gray-200">P-Value</th>' +
-                            '<th class="px-4 py-2 text-left text-xs font-medium text-gray-500 uppercase tracking-wider border-r border-gray-200">Significance</th>' +
-                            '<th class="px-4 py-2 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Selected</th>' +
-                            '</tr></thead><tbody class="bg-white divide-y divide-gray-200">' +
-                            `${result.feature_analysis_table.slice(0, 10).map((item, index) => `
+                            <tr>
+                                <th class="px-4 py-2 text-left text-xs font-medium text-gray-500 uppercase tracking-wider border-r border-gray-200">Rank</th>
+                                <th class="px-4 py-2 text-left text-xs font-medium text-gray-500 uppercase tracking-wider border-r border-gray-200">Feature</th>
+                                <th class="px-4 py-2 text-left text-xs font-medium text-gray-500 uppercase tracking-wider border-r border-gray-200">F-Score</th>
+                                <th class="px-4 py-2 text-left text-xs font-medium text-gray-500 uppercase tracking-wider border-r border-gray-200">P-Value</th>
+                                <th class="px-4 py-2 text-left text-xs font-medium text-gray-500 uppercase tracking-wider border-r border-gray-200">Significance</th>
+                                <th class="px-4 py-2 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Selected</th>
+                            </tr>
+                        </thead>
+                        <tbody class="bg-white divide-y divide-gray-200">
+                            ${result.feature_analysis_table.slice(0, 10).map((item, index) => `
                                 <tr class="hover:bg-gray-50">
                                     <td class="px-4 py-2 whitespace-nowrap text-sm text-gray-900 border-r border-gray-200">${index + 1}</td>
                                     <td class="px-4 py-2 whitespace-nowrap text-sm text-gray-900 border-r border-gray-200">${item.feature}</td>
@@ -240,8 +254,11 @@ class ResultsDisplay {
                                         }
                                     </td>
                                 </tr>
-                            `).join('')}` +
-                            '</tbody></table></div></div>';
+                            `).join('')}
+                        </tbody>
+                    </table>
+                </div>
+            </div>`;
     }
 
     generateSMOTESummary(result) {
@@ -276,15 +293,17 @@ class ResultsDisplay {
                 <div class="overflow-x-auto">
                     <table class="min-w-full table-auto border border-gray-200">
                         <thead class="bg-gray-50">
-                            <tr>` +
-                            '<th class="px-4 py-2 text-left text-xs font-medium text-gray-500 uppercase tracking-wider border-r border-gray-200">Class</th>' +
-                            '<th class="px-4 py-2 text-left text-xs font-medium text-gray-500 uppercase tracking-wider border-r border-gray-200">Before SMOTE</th>' +
-                            '<th class="px-4 py-2 text-left text-xs font-medium text-gray-500 uppercase tracking-wider border-r border-gray-200">After SMOTE</th>' +
-                            '<th class="px-4 py-2 text-left text-xs font-medium text-gray-500 uppercase tracking-wider border-r border-gray-200">Added Samples</th>' +
-                            '<th class="px-4 py-2 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Change %</th>' +
-                            '</tr></thead><tbody class="bg-white divide-y divide-gray-200">' +
-                            `${result.distribution_comparison.map((item, index) => `
-                                <tr class="hover:bg-gray-50">
+                            <tr>
+                                <th class="px-4 py-2 text-left text-xs font-medium text-gray-500 uppercase tracking-wider border-r border-gray-200">Class</th>
+                                <th class="px-4 py-2 text-left text-xs font-medium text-gray-500 uppercase tracking-wider border-r border-gray-200">Before SMOTE</th>
+                                <th class="px-4 py-2 text-left text-xs font-medium text-gray-500 uppercase tracking-wider border-r border-gray-200">After SMOTE</th>
+                                <th class="px-4 py-2 text-left text-xs font-medium text-gray-500 uppercase tracking-wider border-r border-gray-200">Added Samples</th>
+                                <th class="px-4 py-2 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Change %</th>
+                            </tr>
+                        </thead>
+                        <tbody class="bg-white compose-y divide-gray-200">
+                            ${result.distribution_comparison.map((item, index) => `
+                                <tr class="bover:bg-gray-50">
                                     <td class="px-4 py-2 whitespace-nowrap text-sm text-gray-900 border-r border-gray-200">
                                         <span class="px-2 py-1 rounded-full text-xs ${
                                             item.class === 'Class 0' 
@@ -306,8 +325,11 @@ class ResultsDisplay {
                                           '<span class="text-gray-500">No change</span>'}
                                     </td>
                                 </tr>
-                            `).join('')}` +
-                            '</tbody></table></div></div>';
+                            `).join('')}
+                        </tbody>
+                    </table>
+                </div>
+            </div>`;
     }
 
     generateImbalanceRatioAnalysis(result) {
@@ -341,24 +363,30 @@ class ResultsDisplay {
                 <div class="overflow-x-auto">
                     <table class="min-w-full table-auto border border-gray-200">
                         <thead class="bg-gray-50">
-                            <tr>` +
-                            '<th class="px-4 py-2 text-left text-xs font-medium text-gray-500 uppercase tracking-wider border-r border-gray-200">Row</th>' +
-                            `${displayColumns.map(col => 
-                                '<th class="px-4 py-2 text-left text-xs font-medium text-gray-500 uppercase tracking-wider border-r border-gray-200">' + col + '</th>'
-                            ).join('')}` +
-                            '</tr></thead><tbody class="bg-white divide-y divide-gray-200">' +
-                            `${tableData.slice(0, 8).map(row => `
+                            <tr>
+                                <th class="px-4 py-2 text-left text-xs font-medium text-gray-500 uppercase tracking-wider border-r border-gray-200">Row</th>
+                                ${displayColumns.map(col => 
+                                    '<th class="px-4 py-2 text-left text-xs font-medium text-gray-500 uppercase tracking-wider border-r border-gray-200">' + col + '</th>'
+                                ).join('')}
+                            </tr>
+                        </thead>
+                        <tbody class="bg-white divide-y divide-gray-200">
+                            ${tableData.slice(0, 8).map(row => `
                                 <tr class="hover:bg-gray-50">
                                     <td class="px-4 py-2 whitespace-nowrap text-sm text-gray-900 border-r border-gray-200">${row.row}</td>
                                     ${displayColumns.map(key => 
                                         `<td class="px-4 py-2 whitespace-nowrap text-sm text-gray-900 border-r border-gray-200">${typeof row[key] === 'number' ? row[key].toFixed(4) : row[key]}</td>`
                                     ).join('')}
                                 </tr>
-                            `).join('')}` +
-                            '</tbody></table></div></div>';
+                            `).join('')}
+                        </tbody>
+                    </table>
+                </div>
+            </div>`;
     }
 
     generateChartHTML(title, chartBase64) {
+        if (!chartBase64) return '';
         return `
             <div class="mb-4">
                 <h3 class="font-semibold text-gray-800 mb-2">${title}</h3>

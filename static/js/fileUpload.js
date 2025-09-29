@@ -4,6 +4,7 @@ class FileUpload {
     constructor() {
         this.fileInput = document.getElementById('csvFile');
         this.uploadArea = document.getElementById('uploadArea');
+        this.listenersSetup = false;
     }
 
     initialize() {
@@ -11,6 +12,11 @@ class FileUpload {
     }
 
     setupEventListeners() {
+        // Prevent multiple event listeners
+        if (this.listenersSetup) {
+            return;
+        }
+        
         this.fileInput.addEventListener('change', this.handleFileSelect.bind(this));
         
         this.uploadArea.addEventListener('dragover', this.handleDragOver.bind(this));
@@ -18,7 +24,13 @@ class FileUpload {
         this.uploadArea.addEventListener('dragenter', this.handleDragEnter.bind(this));
         this.uploadArea.addEventListener('dragleave', this.handleDragLeave.bind(this));
         
-        this.uploadArea.addEventListener('click', () => this.fileInput.click());
+        this.uploadArea.addEventListener('click', (e) => {
+            e.preventDefault();
+            e.stopPropagation();
+            this.fileInput.click();
+        });
+        
+        this.listenersSetup = true;
     }
 
     handleFileSelect(event) {

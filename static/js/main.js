@@ -1,4 +1,10 @@
 document.addEventListener('DOMContentLoaded', function() {
+    // Prevent double initialization
+    if (window.appInitialized) {
+        console.log('App already initialized');
+        return;
+    }
+    window.appInitialized = true;
     initializeApplication();
 });
 
