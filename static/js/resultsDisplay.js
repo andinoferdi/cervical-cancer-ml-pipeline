@@ -38,7 +38,7 @@ class ResultsDisplay {
             case 3:
                 return this.generateFeatureSelectionResults(result);
             case 4:
-                return this.generateSMOTEResults(result);
+                return this.generateRUSResults(result);
             default:
                 return '';
         }
@@ -129,13 +129,13 @@ class ResultsDisplay {
             ${this.generateSampleDataTable(result.sample_output_table, 'Sample Selected Data')}`;
     }
 
-    generateSMOTEResults(result) {
+    generateRUSResults(result) {
         return `
-            ${this.generateSMOTESummary(result)}
+            ${this.generateRUSSummary(result)}
             ${this.generateClassDistributionTable(result)}
-            ${result.chart_base64 ? this.generateChartHTML('SMOTE Balancing Visualization', result.chart_base64) : ''}
+            ${result.chart_base64 ? this.generateChartHTML('RUS Balancing Visualization', result.chart_base64) : ''}
             ${this.generateImbalanceRatioAnalysis(result)}
-            ${this.generateSampleDataTable(result.sample_output_table, 'Sample Balanced Data')}`;
+            ${this.generateSampleDataTable(result.sample_output_table, 'Sample Cleaned Data')}`;
     }
 
     generateDownloadButton(outputFile) {
@@ -261,7 +261,7 @@ class ResultsDisplay {
             </div>`;
     }
 
-    generateSMOTESummary(result) {
+    generateRUSSummary(result) {
         return `
             <div class="mb-4">
                 <h3 class="font-semibold text-white mb-2">Data Balancing Summary</h3>
@@ -295,8 +295,8 @@ class ResultsDisplay {
                         <thead class="bg-gray-800">
                             <tr>
                                 <th class="px-4 py-2 text-left text-xs font-medium text-gray-300 uppercase tracking-wider border-r border-gray-600">Class</th>
-                                <th class="px-4 py-2 text-left text-xs font-medium text-gray-300 uppercase tracking-wider border-r border-gray-600">Before SMOTE</th>
-                                <th class="px-4 py-2 text-left text-xs font-medium text-gray-300 uppercase tracking-wider border-r border-gray-600">After SMOTE</th>
+                                <th class="px-4 py-2 text-left text-xs font-medium text-gray-300 uppercase tracking-wider border-r border-gray-600">Before RUS</th>
+                                <th class="px-4 py-2 text-left text-xs font-medium text-gray-300 uppercase tracking-wider border-r border-gray-600">After RUS</th>
                                 <th class="px-4 py-2 text-left text-xs font-medium text-gray-300 uppercase tracking-wider border-r border-gray-600">Added Samples</th>
                                 <th class="px-4 py-2 text-left text-xs font-medium text-gray-300 uppercase tracking-wider">Change %</th>
                             </tr>
@@ -313,8 +313,8 @@ class ResultsDisplay {
                                             ${item.class}
                                         </span>
                                     </td>
-                                    <td class="px-4 py-2 whitespace-nowrap text-sm text-gray-100 border-r border-gray-600">${item.before_smote}</td>
-                                    <td class="px-4 py-2 whitespace-nowrap text-sm text-gray-100 border-r border-gray-600">${item.after_smote}</td>
+                                    <td class="px-4 py-2 whitespace-nowrap text-sm text-gray-100 border-r border-gray-600">${item.before_rus}</td>
+                                    <td class="px-4 py-2 whitespace-nowrap text-sm text-gray-100 border-r border-gray-600">${item.after_rus}</td>
                                     <td class="px-4 py-2 whitespace-nowrap text-sm text-gray-100 border-r border-gray-600">
                                         ${item.change > 0 ? `<span class="text-gray-300 font-semibold">+${item.change}</span>` : 
                                           item.change < 0 ? `<span class="text-red-600 font-semibold">${item.change}</span>` : 
@@ -338,12 +338,12 @@ class ResultsDisplay {
                 <h3 class="font-semibold text-white mb-2">Imbalance Ratio Analysis</h3>
                 <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-4">
                     <div class="bg-gray-800 p-4 rounded-lg border border-gray-600">
-                        <h4 class="font-semibold text-white mb-2">Before SMOTE</h4>
+                        <h4 class="font-semibold text-white mb-2">Before RUS</h4>
                         <p class="text-xl font-bold text-red-600">${result.summary_stats.imbalance_ratio_before.toFixed(2)}:1</p>
                         <p class="text-sm text-red-600 mt-1">Highly imbalanced</p>
                     </div>
                     <div class="bg-gray-800 p-4 rounded-lg border border-gray-600">
-                        <h4 class="font-semibold text-white mb-2">After SMOTE</h4>
+                        <h4 class="font-semibold text-white mb-2">After RUS</h4>
                         <p class="text-xl font-bold text-gray-300">${result.summary_stats.imbalance_ratio_after.toFixed(2)}:1</p>
                         <p class="text-sm text-gray-300 mt-1">${result.summary_stats.imbalance_ratio_after <= 1.05 ? 'Balanced!' : 'Improved'}</p>
                     </div>

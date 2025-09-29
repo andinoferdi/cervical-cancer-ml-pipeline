@@ -13,7 +13,7 @@ Platform ini menyediakan **4-step preprocessing pipeline** untuk analisis data k
 1. **Missing Value Analysis** - Deteksi dan analisis missing values
 2. **MinMax Scaling** - Normalisasi data menggunakan MinMax scaler  
 3. **ANOVA Feature Selection** - Seleksi fitur menggunakan statistik ANOVA
-4. **SMOTE Data Balancing** - Balancing dataset menggunakan SMOTE
+4. **RUS Data Balancing** - Balancing dataset menggunakan Random Under Sampling
 
 ## Quick Start
 
@@ -58,7 +58,7 @@ cervical-cancer-analysis/
 │   ├── 1_cek_missing_value.py         # Step 1: Missing values
 ├── 2_transformasi_MinMaxScaler.py     # Step 2: Scaling
 │   ├── 3_seleksi_fitur_anova.py       # Step 3: Feature selection
-│   └── 4_immbalance_data_smote.py     # Step 4: Data balancing
+│   └── 4_immbalance_data_rus.py       # Step 4: Data balancing
 ├── templates/
 │   └── index.html              # Web interface
 ├── static/js/                  # JavaScript modules
@@ -95,7 +95,7 @@ Klik pada step yang ingin dijalankan:
 | **1** | Missing Value Analysis | List kolom dengan missing values |
 | **2** | MinMax Scaling | Data yang sudah dinormalisasi [0-1] |
 | **3** | ANOVA Feature Selection | Fitur terpilih berdasarkan statistik |
-| **4** | SMOTE Data Balancing | Dataset yang sudah seimbang |
+| **4** | RUS Data Balancing | Dataset yang sudah seimbang |
 
 ### 4. Lihat Hasil
 - Tabel hasil processing
@@ -111,7 +111,7 @@ Flask==3.0.0              # Web framework
 pandas==2.1.4             # Data manipulation
 numpy==1.26.2             # Numerical computation
 scikit-learn==1.3.2       # Machine learning algorithms
-imbalanced-learn==0.11.0  # SMOTE functionality
+imbalanced-learn==0.11.0  # RUS functionality
 matplotlib==3.8.2         # Data visualization
 Werkzeug==3.0.1           # Web utilities
 ```
@@ -130,7 +130,7 @@ Werkzeug==3.0.1           # Web utilities
 ### Data Processing Pipeline
 
 ```
-Raw CSV → Missing Analysis → MinMax Scaling → ANOVA Selection → SMOTE Balancing
+Raw CSV → Missing Analysis → MinMax Scaling → ANOVA Selection → RUS Balancing
 ```
 
 **Parameter Konstan:**
@@ -138,7 +138,7 @@ Raw CSV → Missing Analysis → MinMax Scaling → ANOVA Selection → SMOTE Ba
 - Imputation strategy: `median`
 - Scaling range: `[0-1]`
 - ANOVA criteria: `p-value < 0.05`
-- SMOTE random state: `42`
+- RUS random state: `42`
 
 ## Development
 

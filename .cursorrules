@@ -5,7 +5,7 @@ This is a cervical cancer risk analysis platform with a 4-step preprocessing pip
 1. Missing value analysis (pandas)
 2. MinMax scaling (scikit-learn)
 3. ANOVA feature selection (scikit-learn)
-4. SMOTE data balancing (imbalanced-learn)
+4. RUS data balancing (imbalanced-learn)
 
 ## Code Standards
 
@@ -45,7 +45,7 @@ This is a cervical cancer risk analysis platform with a 4-step preprocessing pip
 - Apply imputation with SimpleImputer(strategy="median")
 - Use MinMaxScaler for normalization range [0,1]
 - Apply SelectKBest with f_classif for statistical feature selection
-- Use SMOTE(random_state=42) for reproducible class balancing
+- Use RandomUnderSampler(random_state=42) for reproducible class balancing
 
 ### Code Organization
 - Modular structure with separate files for each processing step
@@ -58,6 +58,6 @@ This is a cervical cancer risk analysis platform with a 4-step preprocessing pip
 - Specify exact versions in requirements.txt
 - Import in logical order: pandas, numpy, sklearn, matplotlib, flask
 - Use aliases for long package names
-- Include imbalanced-learn for SMOTE functionality
+- Include imbalanced-learn for RUS functionality
 
 Always maintain consistency with existing code patterns and ensure web API compatibility while preserving original functionality.

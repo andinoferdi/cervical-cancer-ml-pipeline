@@ -5,7 +5,7 @@ import matplotlib
 import matplotlib.pyplot as plt
 from sklearn.impute import SimpleImputer
 from sklearn.preprocessing import MinMaxScaler
-from imblearn.over_sampling import SMOTE
+from imblearn.under_sampling import RandomUnderSampler
 import base64
 import io
 import logging
@@ -14,9 +14,9 @@ import logging
 matplotlib_logger = logging.getLogger('matplotlib.font_manager')
 matplotlib_logger.setLevel(logging.ERROR)
 
-def step4_smote(path="dataset/risk_factors_cervical_cancer.csv", target="Biopsy", return_json=False):
+def step4_rus(path="dataset/risk_factors_cervical_cancer.csv", target="Biopsy", return_json=False):
     """
-    Perform SMOTE balancing on dataset
+    Perform Random Under Sampling (RUS) balancing on dataset
     
     Args:
         path (str): Path to CSV file
@@ -39,26 +39,26 @@ def step4_smote(path="dataset/risk_factors_cervical_cancer.csv", target="Biopsy"
     scaler = MinMaxScaler()
     X_scl = scaler.fit_transform(X_imp)
 
-    # SMOTE
-    sm = SMOTE(random_state=42)
-    X_res, y_res = sm.fit_resample(X_scl, y)
+    # RUS (Random Under Sampling)
+    rus = RandomUnderSampler(random_state=42)
+    X_res, y_res = rus.fit_resample(X_scl, y)
 
     if not return_json:
-        print("=== Step 4: Imbalanced Data (SMOTE) ===")
+        print("=== Step 4: Imbalanced Data (RUS) ===")
     
     uniq, cnt = np.unique(y, return_counts=True)
     uniq_res, cnt_res = np.unique(y_res, return_counts=True)
     
     if not return_json:
-        print("Distribusi sebelum SMOTE:", dict(zip(uniq, cnt)))
-        print("Distribusi sesudah SMOTE:", dict(zip(uniq_res, cnt_res)))
+        print("Distribusi sebelum RUS:", dict(zip(uniq, cnt)))
+        print("Distribusi sesudah RUS:", dict(zip(uniq_res, cnt_res)))
     
     os.makedirs("output", exist_ok=True)
     
     balanced_df = pd.DataFrame(X_res, columns=X.columns)
     balanced_df['target'] = y_res
     
-    csv_file = "output/4_balanced_data.csv"
+    csv_file = "output/4_rus_cleaned_data.csv"
     balanced_df.to_csv(csv_file, index=False)
     
     if not return_json:
@@ -69,7 +69,7 @@ def step4_smote(path="dataset/risk_factors_cervical_cancer.csv", target="Biopsy"
     plt.subplot(1, 2, 1)
     before_counts = dict(zip(['Class 0', 'Class 1'], cnt))
     plt.bar(before_counts.keys(), before_counts.values(), color=['skyblue', 'orange'])
-    plt.title('Distribusi Sebelum SMOTE')
+    plt.title('Distribusi Sebelum RUS')
     plt.ylabel('Jumlah Sample')
     for i, v in enumerate(before_counts.values()):
         plt.text(i, v + 0.01*v, str(v), ha='center', va='bottom')
@@ -77,13 +77,13 @@ def step4_smote(path="dataset/risk_factors_cervical_cancer.csv", target="Biopsy"
     plt.subplot(1, 2, 2)
     after_counts = dict(zip(['Class 0', 'Class 1'], cnt_res))
     plt.bar(after_counts.keys(), after_counts.values(), color=['skyblue', 'orange'])
-    plt.title('Distribusi Sesudah SMOTE')
+    plt.title('Distribusi Sesudah RUS')
     plt.ylabel('Jumlah Sample')
     for i, v in enumerate(after_counts.values()):
         plt.text(i, v + 0.01*v, str(v), ha='center', va='bottom')
     
     plt.tight_layout()
-    png_file = "output/4_smote_balance.png"
+    png_file = "output/4_rus_balance.png"
     plt.savefig(png_file, dpi=300, bbox_inches='tight')
     plt.close()
     
@@ -114,7 +114,7 @@ def step4_smote(path="dataset/risk_factors_cervical_cancer.csv", target="Biopsy"
         plt.subplot(1, 2, 1)
         before_counts = dict(zip(['Class 0', 'Class 1'], cnt))
         plt.bar(before_counts.keys(), before_counts.values(), color=['skyblue', 'orange'])
-        plt.title('Distribusi Sebelum SMOTE')
+        plt.title('Distribusi Sebelum RUS')
         plt.ylabel('Jumlah Sample')
         for i, v in enumerate(before_counts.values()):
             plt.text(i, v + 0.01*v, str(v), ha='center', va='bottom')
@@ -122,7 +122,7 @@ def step4_smote(path="dataset/risk_factors_cervical_cancer.csv", target="Biopsy"
         plt.subplot(1, 2, 2)
         after_counts = dict(zip(['Class 0', 'Class 1'], cnt_res))
         plt.bar(after_counts.keys(), after_counts.values(), color=['skyblue', 'orange'])
-        plt.title('Distribusi Sesudah SMOTE')
+        plt.title('Distribusi Sesudah RUS')
         plt.ylabel('Jumlah Sample')
         for i, v in enumerate(after_counts.values()):
             plt.text(i, v + 0.01*v, str(v), ha='center', va='bottom')
@@ -138,8 +138,8 @@ def step4_smote(path="dataset/risk_factors_cervical_cancer.csv", target="Biopsy"
         for klass in [0, 1]:
             distribution_comparison.append({
                 'class': f'Class {klass}',
-                'before_smote': int(cnt[np.where(uniq == klass)[0][0]]) if klass in uniq else 0,
-                'after_smote': int(cnt_res[np.where(uniq_res == klass)[0][0]]),
+                'before_rus': int(cnt[np.where(uniq == klass)[0][0]]) if klass in uniq else 0,
+                'after_rus': int(cnt_res[np.where(uniq_res == klass)[0][0]]),
                 'change': int(cnt_res[np.where(uniq_res == klass)[0][0]]) - (int(cnt[np.where(uniq == klass)[0][0]]) if klass in uniq else 0),
                 'percentage_change': f"{((int(cnt_res[np.where(uniq_res == klass)[0][0]]) - (int(cnt[np.where(uniq == klass)[0][0]]) if klass in uniq else 0)) / (int(cnt[np.where(uniq == klass)[0][0]]) if klass in uniq else 1)) * 100:.1f}%" if (int(cnt[np.where(uniq == klass)[0][0]]) if klass in uniq else 0) > 0 else "New samples"
             })
@@ -159,7 +159,7 @@ def step4_smote(path="dataset/risk_factors_cervical_cancer.csv", target="Biopsy"
         imbalance_ratio_after = max(cnt_res) / min(cnt_res) if len(cnt_res) > 1 else 1
         
         return {
-            'message': 'SMOTE data balancing completed successfully',
+            'message': 'RUS data balancing completed successfully',
             'output_file': csv_file,
             'chart_base64': f"data:image/png;base64,{img_base64}",
             'distribution_comparison': distribution_comparison,
@@ -177,4 +177,4 @@ def step4_smote(path="dataset/risk_factors_cervical_cancer.csv", target="Biopsy"
         }
 
 if __name__ == "__main__":
-    step4_smote()
+    step4_rus()

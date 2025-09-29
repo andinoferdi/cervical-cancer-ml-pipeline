@@ -10,7 +10,7 @@ class StepSelector {
             1: 'Missing Values Analysis',
             2: 'MinMax Scaling',
             3: 'Feature Selection (ANOVA)',
-            4: 'SMOTE Data Balancing'
+            4: 'RUS Data Balancing'
         };
     }
 

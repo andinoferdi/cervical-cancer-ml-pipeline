@@ -32,11 +32,11 @@ step3_module = importlib.util.module_from_spec(spec3)
 spec3.loader.exec_module(step3_module)
 step3_anova_features = step3_module.step3_anova
 
-# Import step4 from 4_immbalance_data_smote.py
-spec4 = importlib.util.spec_from_file_location("step4", "models/4_immbalance_data_smote.py")
+# Import step4 from 4_immbalance_data_rus.py
+spec4 = importlib.util.spec_from_file_location("step4", "models/4_immbalance_data_rus.py")
 step4_module = importlib.util.module_from_spec(spec4)
 spec4.loader.exec_module(step4_module)
-step4_smote_balancing = step4_module.step4_smote
+step4_rus_balancing = step4_module.step4_rus
 
 app = Flask(__name__)
 app.config['SECRET_KEY'] = 'your-secret-key-here'
@@ -201,7 +201,7 @@ def process_data():
         elif process_step == '3':
             result = step3_anova_features(filepath, return_json=True)
         elif process_step == '4':
-            result = step4_smote_balancing(filepath, return_json=True)
+            result = step4_rus_balancing(filepath, return_json=True)
         else:
             return jsonify({'error': 'Invalid process step'}), 400
         
@@ -237,11 +237,11 @@ def get_results(step):
                     result['chart'] = f"data:image/png;base64,{img_data}"
                 return jsonify(result)
         elif step == '4':
-            csv_path = 'output/4_balanced_data.csv'
+            csv_path = 'output/4_rus_cleaned_data.csv'
             if os.path.exists(csv_path):
                 result = {'csv': csv_path}
                 # Try to convert PNG to base64 for web display
-                png_path = 'output/4_smote_balance.png'
+                png_path = 'output/4_rus_balance.png'
                 if os.path.exists(png_path):
                     with open(png_path, 'rb') as f:
                         img_data = base64.b64encode(f.read()).decode()
@@ -271,7 +271,7 @@ def get_status():
         ('1', '1_missing_values_analysis.csv'),
         ('2', '2_scaled_data.csv'),
         ('3', '3_selected_features.csv'),
-        ('4', '4_balanced_data.csv')
+        ('4', '4_rus_cleaned_data.csv')
     ]
     
     for step, filename in output_files:
