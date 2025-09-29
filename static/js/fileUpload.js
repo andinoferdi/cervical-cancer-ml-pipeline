@@ -4,6 +4,7 @@ class FileUpload {
     constructor() {
         this.fileInput = document.getElementById('csvFile');
         this.uploadArea = document.getElementById('uploadArea');
+        this.uploadContainer = document.getElementById('uploadContainer');
         this.listenersSetup = false;
     }
 
@@ -19,10 +20,10 @@ class FileUpload {
         
         this.fileInput.addEventListener('change', this.handleFileSelect.bind(this));
         
-        this.uploadArea.addEventListener('dragover', this.handleDragOver.bind(this));
-        this.uploadArea.addEventListener('drop', this.handleDrop.bind(this));
-        this.uploadArea.addEventListener('dragenter', this.handleDragEnter.bind(this));
-        this.uploadArea.addEventListener('dragleave', this.handleDragLeave.bind(this));
+        this.uploadContainer.addEventListener('dragover', this.handleDragOver.bind(this));
+        this.uploadContainer.addEventListener('drop', this.handleDrop.bind(this));
+        this.uploadContainer.addEventListener('dragenter', this.handleDragEnter.bind(this));
+        this.uploadContainer.addEventListener('dragleave', this.handleDragLeave.bind(this));
         
         this.uploadArea.addEventListener('click', (e) => {
             e.preventDefault();
@@ -49,19 +50,21 @@ class FileUpload {
     handleDragEnter(event) {
         event.preventDefault();
         event.stopPropagation();
-        event.target.classList.add('border-blue-500', 'bg-blue-50');
+        this.uploadContainer.classList.add('drag-over');
     }
 
     handleDragLeave(event) {
         event.preventDefault();
         event.stopPropagation();
-        event.target.classList.remove('border-blue-500', 'bg-blue-50');
+        if (!event.relatedTarget || !this.uploadContainer.contains(event.relatedTarget)) {
+            this.uploadContainer.classList.remove('drag-over');
+        }
     }
 
     handleDrop(event) {
         event.preventDefault();
         event.stopPropagation();
-        event.target.classList.remove('border-blue-500', 'bg-blue-50');
+        this.uploadContainer.classList.remove('drag-over');
         
         const files = event.dataTransfer.files;
         if (files.length > 0) {

@@ -18,7 +18,7 @@ class ResultsDisplay {
 
     generateSuccessMessage(message) {
         return `
-            <div class="bg-green-50 border border-green-200 rounded-lg p-4 mb-4">
+            <div class="bg-gray-800 border border-gray-600 rounded-lg p-4 mb-4">
                 <div class="flex items-center">
                     <svg class="h-5 w-5 text-green-500 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
@@ -47,23 +47,23 @@ class ResultsDisplay {
     generateMissingValuesResults(result) {
         return `
             <div class="mb-4">
-                <h3 class="font-semibold text-gray-800 mb-2">Missing Values Summary</h3>
-                <p class="text-sm text-gray-600 mb-2">Found ${result.total_missing_features} columns with missing values</p>
+                <h3 class="font-semibold text-white mb-2">Missing Values Summary</h3>
+                <p class="text-sm text-gray-300 mb-2">Found ${result.total_missing_features} columns with missing values</p>
                 <div class="overflow-x-auto">
-                    <table class="min-w-full table-auto border border-gray-200">
-                        <thead class="bg-gray-50">
+                    <table class="min-w-full table-auto border border-gray-600">
+                        <thead class="bg-gray-800">
                             <tr>
-                                <th class="px-4 py-2 text-left text-xs font-medium text-gray-500 uppercase tracking-wider border-r border-gray-200">Feature</th>
-                                <th class="px-4 py-2 text-left text-xs font-medium text-gray-500 uppercase tracking-wider border-r border-gray-200">Missing Count</th>
-                                <th class="px-4 py-2 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Missing %</th>
+                                <th class="px-4 py-2 text-left text-xs font-medium text-gray-300 uppercase tracking-wider border-r border-gray-600">Feature</th>
+                                <th class="px-4 py-2 text-left text-xs font-medium text-gray-300 uppercase tracking-wider border-r border-gray-600">Missing Count</th>
+                                <th class="px-4 py-2 text-left text-xs font-medium text-gray-300 uppercase tracking-wider">Missing %</th>
                             </tr>
                         </thead>
-                        <tbody class="bg-white divide-y divide-gray-200">
+                        <tbody class="bg-gray-900 divide-y divide-gray-700">
                             ${result.missing_summary.slice(0, 10).map(item => `
-                                <tr class="hover:bg-gray-50">
-                                    <td class="px-4 py-2 whitespace-nowrap text-sm text-gray-900 border-r border-gray-200">${item.feature}</td>
-                                    <td class="px-4 py-2 whitespace-nowrap text-sm text-gray-900 border-r border-gray-200">${item.missing_count}</td>
-                                    <td class="px-4py-2 whitespace-nowrap text-sm text-gray-900">${item.missing_percentage.toFixed(2)}%</td>
+                                <tr class="hover:bg-gray-800 transition-colors">
+                                    <td class="px-4 py-2 whitespace-nowrap text-sm text-gray-100 border-r border-gray-600">${item.feature}</td>
+                                    <td class="px-4 py-2 whitespace-nowrap text-sm text-gray-100 border-r border-gray-600">${item.missing_count}</td>
+                                    <td class="px-4 py-2 whitespace-nowrap text-sm text-gray-100">${item.missing_percentage.toFixed(2)}%</td>
                                 </tr>
                             `).join('')}
                         </tbody>
@@ -83,23 +83,23 @@ class ResultsDisplay {
     generateScalingSummary(result) {
         return `
             <div class="mb-4">
-                <h3 class="font-semibold text-gray-800 mb-2">Summary Statistics</h3>
+                <h3 class="font-semibold text-white mb-2">Summary Statistics</h3>
                 <div class="grid grid-cols-2 md:grid-cols-4 gap-4 mb-4">
-                    <div class="bg-blue-50 p-4 rounded-lg">
-                        <h4 class="font-semibold text-blue-800">Total Rows</h4>
-                        <p class="text-2xl font-bold text-blue-600">${result.summary_stats.total_rows}</p>
+                    <div class="bg-gray-800 p-4 rounded-lg">
+                        <h4 class="font-semibold text-white">Total Rows</h4>
+                        <p class="text-2xl font-bold text-gray-300">${result.summary_stats.total_rows}</p>
                     </div>
-                    <div class="bg-green-50 p-4 rounded-lg">
-                        <h4 class="font-semibold text-green-800">Features</h4>
-                        <p class="text-2xl font-bold text-green-600">${result.summary_stats.numeric_features}</p>
+                    <div class="bg-gray-800 p-4 rounded-lg">
+                        <h4 class="font-semibold text-white">Features</h4>
+                        <p class="text-2xl font-bold text-gray-300">${result.summary_stats.numeric_features}</p>
                     </div>
-                    <div class="bg-yellow-50 p-4 rounded-lg">
-                        <h4 class="font-semibold text-yellow-800">Scaling Range</h4>
-                        <p class="text-lg font-bold text-yellow-600">0 - 1</p>
+                    <div class="bg-gray-800 p-4 rounded-lg">
+                        <h4 class="font-semibold text-white">Scaling Range</h4>
+                        <p class="text-lg font-bold text-gray-300">0 - 1</p>
                     </div>
-                    <div class="bg-purple-50 p-4 rounded-lg">
-                        <h4 class="font-semibold text-purple-800">Missing Values</h4>
-                        <p class="text-lg font-bold text-purple-600">Handled</p>
+                    <div class="bg-gray-800 p-4 rounded-lg">
+                        <h4 class="font-semibold text-white">Missing Values</h4>
+                        <p class="text-lg font-bold text-gray-300">Handled</p>
                     </div>
                 </div>
             </div>`;
@@ -115,10 +115,10 @@ class ResultsDisplay {
         return `
             ${this.generateFeatureSelectionSummary(result)}
             <div class="mb-4">
-                <h3 class="font-semibold text-gray-800 mb-2">Selected Features List</h3>
+                <h3 class="font-semibold text-white mb-2">Selected Features List</h3>
                 <div class="flex flex-wrap gap-2 mb-4">
                     ${result.selected_features_summary.map(feat => `
-                        <span class="bg-blue-100 text-blue-800 px-3 py-1 rounded-full text-sm">
+                        <span class="bg-blue-100 text-white px-3 py-1 rounded-full text-sm">
                             ${feat.feature} (Rank: ${feat.rank})
                         </span>
                     `).join('')}
@@ -164,23 +164,23 @@ class ResultsDisplay {
         
         return `
             <div>
-                <h3 class="font-semibold text-gray-800 mb-2">${title}</h3>
+                <h3 class="font-semibold text-white mb-2">${title}</h3>
                 <div class="overflow-x-auto">
-                    <table class="min-w-full table-auto border border-gray-200 mb-4">
-                        <thead class="bg-gray-50">
+                    <table class="min-w-full table-auto border border-gray-600 mb-4">
+                        <thead class="bg-gray-800">
                             <tr>
-                                <th class="px-4 py-2 text-left text-xs font-medium text-gray-500 uppercase tracking-wider border-r border-gray-200">Row</th>
+                                <th class="px-4 py-2 text-left text-xs font-medium text-gray-300 uppercase tracking-wider border-r border-gray-600">Row</th>
                                 ${displayColumns.map(col => 
-                                    '<th class="px-4 py-2 text-left text-xs font-medium text-gray-500 uppercase tracking-wider border-r border-gray-200">' + col + '</th>'
+                                    '<th class="px-4 py-2 text-left text-xs font-medium text-gray-300 uppercase tracking-wider border-r border-gray-600">' + col + '</th>'
                                 ).join('')}
                             </tr>
                         </thead>
-                        <tbody class="bg-white divide-y divide-gray-200">
+                        <tbody class="bg-gray-900 divide-y divide-gray-700">
                             ${tableData.slice(0, 5).map(row => `
-                                <tr class="hover:bg-gray-50">
-                                    <td class="px-4 py-2 whitespace-nowrap text-sm text-gray-900 border-r border-gray-200">${row.row}</td>
+                                <tr class="hover:bg-gray-800 transition-colors">
+                                    <td class="px-4 py-2 whitespace-nowrap text-sm text-gray-100 border-r border-gray-600">${row.row}</td>
                                     ${displayColumns.map(key => 
-                                        `<td class="px-4 py-2 whitespace-nowrap text-sm text-gray-900 border-r border-gray-200">${typeof row[key] === 'number' ? row[key].toFixed(6) : row[key]}</td>`
+                                        `<td class="px-4 py-2 whitespace-nowrap text-sm text-gray-100 border-r border-gray-600">${typeof row[key] === 'number' ? row[key].toFixed(6) : row[key]}</td>` 
                                     ).join('')}
                                 </tr>
                             `).join('')}
@@ -193,23 +193,23 @@ class ResultsDisplay {
     generateFeatureSelectionSummary(result) {
         return `
             <div class="mb-4">
-                <h3 class="font-semibold text-gray-800 mb-2">Selected Features Summary</h3>
+                <h3 class="font-semibold text-white mb-2">Selected Features Summary</h3>
                 <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 mb-4">
-                    <div class="bg-blue-50 p-4 rounded-lg">
-                        <h4 class="font-semibold text-blue-800">Total Features</h4>
-                        <p class="text-2xl font-bold text-blue-600">${result.summary_stats.total_features_analyzed}</p>
+                    <div class="bg-gray-800 p-4 rounded-lg">
+                        <h4 class="font-semibold text-white">Total Features</h4>
+                        <p class="text-2xl font-bold text-gray-300">${result.summary_stats.total_features_analyzed}</p>
                     </div>
-                    <div class="bg-green-50 p-4 rounded-lg">
-                        <h4 class="font-semibold text-green-800">Selected Features</h4>
-                        <p class="text-2xl font-bold text-green-600">${result.summary_stats.features_selected}</p>
+                    <div class="bg-gray-800 p-4 rounded-lg">
+                        <h4 class="font-semibold text-white">Selected Features</h4>
+                        <p class="text-2xl font-bold text-gray-300">${result.summary_stats.features_selected}</p>
                     </div>
-                    <div class="bg-yellow-50 p-4 rounded-lg">
-                        <h4 class="font-semibold text-yellow-800">Selection Rate</h4>
-                        <p class="text-xl font-bold text-yellow-600">${result.summary_stats.selection_rate}</p>
+                    <div class="bg-gray-800 p-4 rounded-lg">
+                        <h4 class="font-semibold text-white">Selection Rate</h4>
+                        <p class="text-xl font-bold text-gray-300">${result.summary_stats.selection_rate}</p>
                     </div>
-                    <div class="bg-purple-50 p-4 rounded-lg">
-                        <h4 class="font-semibold text-purple-800">Target Column</h4>
-                        <p class="text-lg font-bold text-purple-600">${result.summary_stats.target_column}</p>
+                    <div class="bg-gray-800 p-4 rounded-lg">
+                        <h4 class="font-semibold text-white">Target Column</h4>
+                        <p class="text-lg font-bold text-gray-300">${result.summary_stats.target_column}</p>
                     </div>
                 </div>
             </div>`;
@@ -218,38 +218,38 @@ class ResultsDisplay {
     generateFeatureAnalysisTable(result) {
         return `
             <div class="mb-4">
-                <h3 class="font-semibold text-gray-800 mb-2">Feature Analysis (Top 10)</h3>
+                <h3 class="font-semibold text-white mb-2">Feature Analysis (Top 10)</h3>
                 <div class="overflow-x-auto">
-                    <table class="min-w-full table-auto border border-gray-200">
-                        <thead class="bg-gray-50">
+                    <table class="min-w-full table-auto border border-gray-600">
+                        <thead class="bg-gray-800">
                             <tr>
-                                <th class="px-4 py-2 text-left text-xs font-medium text-gray-500 uppercase tracking-wider border-r border-gray-200">Rank</th>
-                                <th class="px-4 py-2 text-left text-xs font-medium text-gray-500 uppercase tracking-wider border-r border-gray-200">Feature</th>
-                                <th class="px-4 py-2 text-left text-xs font-medium text-gray-500 uppercase tracking-wider border-r border-gray-200">F-Score</th>
-                                <th class="px-4 py-2 text-left text-xs font-medium text-gray-500 uppercase tracking-wider border-r border-gray-200">P-Value</th>
-                                <th class="px-4 py-2 text-left text-xs font-medium text-gray-500 uppercase tracking-wider border-r border-gray-200">Significance</th>
-                                <th class="px-4 py-2 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Selected</th>
+                                <th class="px-4 py-2 text-left text-xs font-medium text-gray-300 uppercase tracking-wider border-r border-gray-600">Rank</th>
+                                <th class="px-4 py-2 text-left text-xs font-medium text-gray-300 uppercase tracking-wider border-r border-gray-600">Feature</th>
+                                <th class="px-4 py-2 text-left text-xs font-medium text-gray-300 uppercase tracking-wider border-r border-gray-600">F-Score</th>
+                                <th class="px-4 py-2 text-left text-xs font-medium text-gray-300 uppercase tracking-wider border-r border-gray-600">P-Value</th>
+                                <th class="px-4 py-2 text-left text-xs font-medium text-gray-300 uppercase tracking-wider border-r border-gray-600">Significance</th>
+                                <th class="px-4 py-2 text-left text-xs font-medium text-gray-300 uppercase tracking-wider">Selected</th>
                             </tr>
                         </thead>
-                        <tbody class="bg-white divide-y divide-gray-200">
+                        <tbody class="bg-gray-900 divide-y divide-gray-700">
                             ${result.feature_analysis_table.slice(0, 10).map((item, index) => `
-                                <tr class="hover:bg-gray-50">
-                                    <td class="px-4 py-2 whitespace-nowrap text-sm text-gray-900 border-r border-gray-200">${index + 1}</td>
-                                    <td class="px-4 py-2 whitespace-nowrap text-sm text-gray-900 border-r border-gray-200">${item.feature}</td>
-                                    <td class="px-4 py-2 whitespace-nowrap text-sm text-gray-900 border-r border-gray-200">${item.f_score ? item.f_score.toFixed(4) : 'N/A'}</td>
-                                    <td class="px-4 py-2 whitespace-nowrap text-sm text-gray-900 border-r border-gray-200">${item.p_value ? item.p_value.toExponential(2) : 'N/A'}</td>
-                                    <td class="px-4 py-2 whitespace-nowrap text-sm border-r border-gray-200">
+                                <tr class="hover:bg-gray-800">
+                                    <td class="px-4 py-2 whitespace-nowrap text-sm text-gray-100 border-r border-gray-600">${index + 1}</td>
+                                    <td class="px-4 py-2 whitespace-nowrap text-sm text-gray-100 border-r border-gray-600">${item.feature}</td>
+                                    <td class="px-4 py-2 whitespace-nowrap text-sm text-gray-100 border-r border-gray-600">${item.f_score ? item.f_score.toFixed(4) : 'N/A'}</td>
+                                    <td class="px-4 py-2 whitespace-nowrap text-sm text-gray-100 border-r border-gray-600">${item.p_value ? item.p_value.toExponential(2) : 'N/A'}</td>
+                                    <td class="px-4 py-2 whitespace-nowrap text-sm border-r border-gray-600">
                                         <span class="px-2 py-1 rounded-full text-xs ${
                                             item.significance === 'Significant' 
-                                                ? 'bg-green-100 text-green-800' 
-                                                : 'bg-gray-100 text-gray-800'
+                                                ? 'bg-green-100 text-white' 
+                                                : 'bg-gray-100 text-white'
                                         }">
                                             ${item.significance}
                                         </span>
                                     </td>
-                                    <td class="px-4 py-2 whitespace-nowrap text-sm text-gray-900">
+                                    <td class="px-4 py-2 whitespace-nowrap text-sm text-gray-100">
                                         ${item.selected ? 
-                                            '<span class="text-green-600">✓</span>' : 
+                                            '<span class="text-gray-300">✓</span>' : 
                                             '<span class="text-gray-400">✗</span>'
                                         }
                                     </td>
@@ -264,23 +264,23 @@ class ResultsDisplay {
     generateSMOTESummary(result) {
         return `
             <div class="mb-4">
-                <h3 class="font-semibold text-gray-800 mb-2">Data Balancing Summary</h3>
+                <h3 class="font-semibold text-white mb-2">Data Balancing Summary</h3>
                 <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 mb-4">
-                    <div class="bg-blue-50 p-4 rounded-lg">
-                        <h4 class="font-semibold text-blue-800">Samples Before</h4>
-                        <p class="text-2xl font-bold text-blue-600">${result.summary_stats.total_samples_before}</p>
+                    <div class="bg-gray-800 p-4 rounded-lg">
+                        <h4 class="font-semibold text-white">Samples Before</h4>
+                        <p class="text-2xl font-bold text-gray-300">${result.summary_stats.total_samples_before}</p>
                     </div>
-                    <div class="bg-green-50 p-4 rounded-lg">
-                        <h4 class="font-semibold text-green-800">Samples After</h4>
-                        <p class="text-2xl font-bold text-green-600">${result.summary_stats.total_samples_after}</p>
+                    <div class="bg-gray-800 p-4 rounded-lg">
+                        <h4 class="font-semibold text-white">Samples After</h4>
+                        <p class="text-2xl font-bold text-gray-300">${result.summary_stats.total_samples_after}</p>
                     </div>
-                    <div class="bg-purple-50 p-4 rounded-lg">
-                        <h4 class="font-semibold text-purple-800">Classes</h4>
-                        <p class="text-lg font-bold text-purple-600">${result.summary_stats.classes.join(', ')}</p>
+                    <div class="bg-gray-800 p-4 rounded-lg">
+                        <h4 class="font-semibold text-white">Classes</h4>
+                        <p class="text-lg font-bold text-gray-300">${result.summary_stats.classes.join(', ')}</p>
                     </div>
-                    <div class="bg-yellow-50 p-4 rounded-lg">
-                        <h4 class="font-semibold text-yellow-800">Balance Status</h4>
-                        <p class="text-lg font-bold text-yellow-600">${result.summary_stats.balancing_status}</p>
+                    <div class="bg-gray-800 p-4 rounded-lg">
+                        <h4 class="font-semibold text-white">Balance Status</h4>
+                        <p class="text-lg font-bold text-gray-300">${result.summary_stats.balancing_status}</p>
                     </div>
                 </div>
             </div>`;
@@ -289,40 +289,40 @@ class ResultsDisplay {
     generateClassDistributionTable(result) {
         return `
             <div class="mb-4">
-                <h3 class="font-semibold text-gray-800 mb-2">Class Distribution Comparison</h3>
+                <h3 class="font-semibold text-white mb-2">Class Distribution Comparison</h3>
                 <div class="overflow-x-auto">
-                    <table class="min-w-full table-auto border border-gray-200">
-                        <thead class="bg-gray-50">
+                    <table class="min-w-full table-auto border border-gray-600">
+                        <thead class="bg-gray-800">
                             <tr>
-                                <th class="px-4 py-2 text-left text-xs font-medium text-gray-500 uppercase tracking-wider border-r border-gray-200">Class</th>
-                                <th class="px-4 py-2 text-left text-xs font-medium text-gray-500 uppercase tracking-wider border-r border-gray-200">Before SMOTE</th>
-                                <th class="px-4 py-2 text-left text-xs font-medium text-gray-500 uppercase tracking-wider border-r border-gray-200">After SMOTE</th>
-                                <th class="px-4 py-2 text-left text-xs font-medium text-gray-500 uppercase tracking-wider border-r border-gray-200">Added Samples</th>
-                                <th class="px-4 py-2 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Change %</th>
+                                <th class="px-4 py-2 text-left text-xs font-medium text-gray-300 uppercase tracking-wider border-r border-gray-600">Class</th>
+                                <th class="px-4 py-2 text-left text-xs font-medium text-gray-300 uppercase tracking-wider border-r border-gray-600">Before SMOTE</th>
+                                <th class="px-4 py-2 text-left text-xs font-medium text-gray-300 uppercase tracking-wider border-r border-gray-600">After SMOTE</th>
+                                <th class="px-4 py-2 text-left text-xs font-medium text-gray-300 uppercase tracking-wider border-r border-gray-600">Added Samples</th>
+                                <th class="px-4 py-2 text-left text-xs font-medium text-gray-300 uppercase tracking-wider">Change %</th>
                             </tr>
                         </thead>
-                        <tbody class="bg-white compose-y divide-gray-200">
+                        <tbody class="bg-gray-900 compose-y divide-gray-700">
                             ${result.distribution_comparison.map((item, index) => `
-                                <tr class="bover:bg-gray-50">
-                                    <td class="px-4 py-2 whitespace-nowrap text-sm text-gray-900 border-r border-gray-200">
+                                <tr class="bover:bg-gray-800">
+                                    <td class="px-4 py-2 whitespace-nowrap text-sm text-gray-100 border-r border-gray-600">
                                         <span class="px-2 py-1 rounded-full text-xs ${
                                             item.class === 'Class 0' 
-                                                ? 'bg-blue-100 text-blue-800' 
+                                                ? 'bg-blue-100 text-white' 
                                                 : 'bg-orange-100 text-orange-800'
                                         }">
                                             ${item.class}
                                         </span>
                                     </td>
-                                    <td class="px-4 py-2 whitespace-nowrap text-sm text-gray-900 border-r border-gray-200">${item.before_smote}</td>
-                                    <td class="px-4 py-2 whitespace-nowrap text-sm text-gray-900 border-r border-gray-200">${item.after_smote}</td>
-                                    <td class="px-4 py-2 whitespace-nowrap text-sm text-gray-900 border-r border-gray-200">
-                                        ${item.change > 0 ? `<span class="text-green-600 font-semibold">+${item.change}</span>` : 
+                                    <td class="px-4 py-2 whitespace-nowrap text-sm text-gray-100 border-r border-gray-600">${item.before_smote}</td>
+                                    <td class="px-4 py-2 whitespace-nowrap text-sm text-gray-100 border-r border-gray-600">${item.after_smote}</td>
+                                    <td class="px-4 py-2 whitespace-nowrap text-sm text-gray-100 border-r border-gray-600">
+                                        ${item.change > 0 ? `<span class="text-gray-300 font-semibold">+${item.change}</span>` : 
                                           item.change < 0 ? `<span class="text-red-600 font-semibold">${item.change}</span>` : 
-                                          '<span class="text-gray-500">0</span>'}
+                                          '<span class="text-gray-300">0</span>'}
                                     </td>
-                                    <td class="px-4 py-2 whitespace-nowrap text-sm text-gray-900">
-                                        ${item.change > 0 ? `<span class="text-green-600 font-semibold">${item.percentage_change}</span>` : 
-                                          '<span class="text-gray-500">No change</span>'}
+                                    <td class="px-4 py-2 whitespace-nowrap text-sm text-gray-100">
+                                        ${item.change > 0 ? `<span class="text-gray-300 font-semibold">${item.percentage_change}</span>` : 
+                                          '<span class="text-gray-300">No change</span>'}
                                     </td>
                                 </tr>
                             `).join('')}
@@ -335,17 +335,17 @@ class ResultsDisplay {
     generateImbalanceRatioAnalysis(result) {
         return `
             <div class="mb-4">
-                <h3 class="font-semibold text-gray-800 mb-2">Imbalance Ratio Analysis</h3>
+                <h3 class="font-semibold text-white mb-2">Imbalance Ratio Analysis</h3>
                 <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-4">
-                    <div class="bg-red-50 p-4 rounded-lg border border-red-200">
-                        <h4 class="font-semibold text-red-800 mb-2">Before SMOTE</h4>
+                    <div class="bg-gray-800 p-4 rounded-lg border border-gray-600">
+                        <h4 class="font-semibold text-white mb-2">Before SMOTE</h4>
                         <p class="text-xl font-bold text-red-600">${result.summary_stats.imbalance_ratio_before.toFixed(2)}:1</p>
                         <p class="text-sm text-red-600 mt-1">Highly imbalanced</p>
                     </div>
-                    <div class="bg-green-50 p-4 rounded-lg border border-green-200">
-                        <h4 class="font-semibold text-green-800 mb-2">After SMOTE</h4>
-                        <p class="text-xl font-bold text-green-600">${result.summary_stats.imbalance_ratio_after.toFixed(2)}:1</p>
-                        <p class="text-sm text-green-600 mt-1">${result.summary_stats.imbalance_ratio_after <= 1.05 ? 'Balanced!' : 'Improved'}</p>
+                    <div class="bg-gray-800 p-4 rounded-lg border border-gray-600">
+                        <h4 class="font-semibold text-white mb-2">After SMOTE</h4>
+                        <p class="text-xl font-bold text-gray-300">${result.summary_stats.imbalance_ratio_after.toFixed(2)}:1</p>
+                        <p class="text-sm text-gray-300 mt-1">${result.summary_stats.imbalance_ratio_after <= 1.05 ? 'Balanced!' : 'Improved'}</p>
                     </div>
                 </div>
             </div>`;
@@ -359,23 +359,23 @@ class ResultsDisplay {
         
         return `
             <div class="mb-4">
-                <h3 class="font-semibold text-gray-800 mb-2">${title}</h3>
+                <h3 class="font-semibold text-white mb-2">${title}</h3>
                 <div class="overflow-x-auto">
-                    <table class="min-w-full table-auto border border-gray-200">
-                        <thead class="bg-gray-50">
+                    <table class="min-w-full table-auto border border-gray-600">
+                        <thead class="bg-gray-800">
                             <tr>
-                                <th class="px-4 py-2 text-left text-xs font-medium text-gray-500 uppercase tracking-wider border-r border-gray-200">Row</th>
+                                <th class="px-4 py-2 text-left text-xs font-medium text-gray-300 uppercase tracking-wider border-r border-gray-600">Row</th>
                                 ${displayColumns.map(col => 
-                                    '<th class="px-4 py-2 text-left text-xs font-medium text-gray-500 uppercase tracking-wider border-r border-gray-200">' + col + '</th>'
+                                    '<th class="px-4 py-2 text-left text-xs font-medium text-gray-300 uppercase tracking-wider border-r border-gray-600">' + col + '</th>'
                                 ).join('')}
                             </tr>
                         </thead>
-                        <tbody class="bg-white divide-y divide-gray-200">
+                        <tbody class="bg-gray-900 divide-y divide-gray-700">
                             ${tableData.slice(0, 8).map(row => `
-                                <tr class="hover:bg-gray-50">
-                                    <td class="px-4 py-2 whitespace-nowrap text-sm text-gray-900 border-r border-gray-200">${row.row}</td>
+                                <tr class="hover:bg-gray-800">
+                                    <td class="px-4 py-2 whitespace-nowrap text-sm text-gray-100 border-r border-gray-600">${row.row}</td>
                                     ${displayColumns.map(key => 
-                                        `<td class="px-4 py-2 whitespace-nowrap text-sm text-gray-900 border-r border-gray-200">${typeof row[key] === 'number' ? row[key].toFixed(4) : row[key]}</td>`
+                                        `<td class="px-4 py-2 whitespace-nowrap text-sm text-gray-100 border-r border-gray-600">${typeof row[key] === 'number' ? row[key].toFixed(4) : row[key]}</td>`
                                     ).join('')}
                                 </tr>
                             `).join('')}
@@ -389,8 +389,8 @@ class ResultsDisplay {
         if (!chartBase64) return '';
         return `
             <div class="mb-4">
-                <h3 class="font-semibold text-gray-800 mb-2">${title}</h3>
-                <img src="${chartBase64}" alt="Chart" class="w-full h-auto border border-gray-200 rounded">
+                <h3 class="font-semibold text-white mb-2">${title}</h3>
+                <img src="${chartBase64}" alt="Chart" class="w-full h-auto border border-gray-600 rounded">
             </div>`;
     }
 }

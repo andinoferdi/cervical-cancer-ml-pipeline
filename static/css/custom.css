@@ -1,0 +1,100 @@
+        /* Next.js Inspired Black & White Theme */
+        
+        /* Custom scrollbar */
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #111111;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #333333;
+            border-radius: 4px;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: #555555;
+        }
+        
+        /* Glassmorphism effect */
+        .glass {
+            background: rgba(0, 0, 0, 0.8);
+            backdrop-filter: blur(20px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+        
+        /* Gradient backgrounds */
+        .gradient-bg {
+            background: linear-gradient(135deg, #000000 0%, #111111 50%, #222222 100%);
+        }
+        
+        .card-gradient {
+            background: linear-gradient(145deg, #111111 0%, #1a1a1a 100%);
+            transition: all 0.3s ease;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+        
+        .unselected-step {
+            opacity: 0.6;
+            filter: grayscale(40%);
+            border-color: rgba(255, 255, 255, 0.1) !important;
+        }
+        
+        .unselected-step:hover {
+            opacity: 1;
+            filter: grayscale(0%);
+            border-color: rgba(255, 255, 255, 0.2) !important;
+        }
+        
+        [data-step].selected {
+            border-color: #ffffff !important;
+            background: linear-gradient(145deg, #1a1a1a, #2a2a2a);
+            box-shadow: 0 0 20px rgba(255, 255, 255, 0.2);
+        }
+        
+        /* Next.js style improvements */
+        .glass:hover {
+            border-color: rgba(255, 255, 255, 0.2);
+        }
+        
+        .card-gradient:hover {
+            border-color: rgba(255, 255, 255, 0.2);
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.5);
+        }
+        
+        /* Button hover effects */
+        .btn-primary {
+            background: linear-gradient(145deg, #ffffff, #f0f0f0);
+            color: #000000;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+        }
+        
+        .btn-primary:hover {
+            background: linear-gradient(145deg, #f0f0f0, #e0e0e0);
+            transform: translateY(-1px);
+            box-shadow: 0 5px 15px rgba(255, 255, 255, 0.1);
+        }
+        
+        /* Drag & Drop States */
+        .drag-over {
+            border-color: #ffffff !important;
+            background: rgba(42, 42, 42, 0.8) !important;
+            transform: scale(1.02);
+            box-shadow: 0 0 20px rgba(255, 255, 255, 0.2);
+        }
+        
+        .drag-over .upload-icon {
+            transform: rotate(5deg) scale(1.1);
+        }
+        
+        /* Upload area improvements */
+        #uploadContainer {
+            transition: all 0.3s ease;
+        }
+        
+        #uploadContainer:hover {
+            background: rgba(42, 42, 42, 0.6);
+        }
+        
+        #uploadContainer.drag-over {
+            background: rgba(55, 55, 55, 0.9) !important;
+        }

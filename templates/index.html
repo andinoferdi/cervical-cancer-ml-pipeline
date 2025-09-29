@@ -8,6 +8,7 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
     <script src="https://cdn.tailwindcss.com"></script>
+    <link href="{{ url_for('static', filename='css/custom.css') }}" rel="stylesheet">
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <script>
         tailwind.config = {
@@ -32,16 +33,16 @@
                             950: '#020617'
                         },
                         accent: {
-                            50: '#f0f9ff',
-                            100: '#e0f2fe',
-                            200: '#bae6fd',
-                            300: '#7dd3fc',
-                            400: '#38bdf8',
-                            500: '#0ea5e9',
-                            600: '#0284c7',
-                            700: '#0369a1',
-                            800: '#075985',
-                            900: '#0c4a6e'
+                            50: '#f8f8f8',
+                            100: '#f0f0f0',
+                            200: '#e1e1e1',
+                            300: '#d4d4d4',
+                            400: '#a3a3a3',
+                            500: '#ffffff',
+                            600: '#e5e5e5',
+                            700: '#d4d4d4',
+                            800: '#a3a3a3',
+                            900: '#737373'
                         }
                     },
                     animation: {
@@ -63,55 +64,7 @@
             }
         }
     </script>
-    <style>
-        /* Custom scrollbar for dark theme */
-        ::-webkit-scrollbar {
-            width: 8px;
-        }
-        ::-webkit-scrollbar-track {
-            background: #1e293b;
-        }
-        ::-webkit-scrollbar-thumb {
-            background: #475569;
-            border-radius: 4px;
-        }
-        ::-webkit-scrollbar-thumb:hover {
-            background: #64748b;
-        }
-        
-        /* Glassmorphism effect */
-        .glass {
-            background: rgba(30, 41, 59, 0.7);
-            backdrop-filter: blur(10px);
-            border: 1px solid rgba(71, 85, 105, 0.3);
-        }
-        
-        /* Gradient backgrounds */
-        .gradient-bg {
-            background: linear-gradient(135deg, #0f172a 0%, #1e293b 50%, #334155 100%);
-        }
-        
-        .card-gradient {
-            background: linear-gradient(145deg, #1e293b 0%, #334155 100%);
-            transition: all 0.3s ease;
-        }
-        
-        .unselected-step {
-            opacity: 0.7;
-            filter: grayscale(30%);
-        }
-        
-        .unselected-step:hover {
-            opacity: 1;
-            filter: grayscale(0%);
-        }
-        
-        [data-step].selected {
-            border-color: rgb(59 130 246) !important;
-            background: linear-gradient(145deg, #1e40af20, #1d4ed820);
-            box-shadow: 0 0 20px rgba(59, 130, 246, 0.3);
-        }
-    </style>
+   
 </head>
 <body class="gradient-bg min-h-screen font-inter text-slate-100">
     <!-- Background Pattern -->
@@ -122,15 +75,15 @@
     <div class="relative z-10 max-w-7xl mx-auto px-4 py-8">
         <!-- Header -->
         <div class="text-center mb-12 animate-fade-in">
-            <div class="inline-flex items-center justify-center w-16 h-16 bg-accent-500 rounded-2xl mb-6 shadow-lg">
-                <svg class="w-8 h-8 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <div class="inline-flex items-center justify-center w-16 h-16 bg-white rounded-2xl mb-6 shadow-lg">
+                <svg class="w-8 h-8 text-black" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z"></path>
                 </svg>
             </div>
-            <h1 class="text-5xl font-bold text-white mb-4 bg-gradient-to-r from-white to-slate-300 bg-clip-text text-transparent">
+            <h1 class="text-5xl font-bold text-white mb-4 bg-gradient-to-r from-white to-gray-300 bg-clip-text text-transparent">
                 Cervical Cancer Risk Analysis Platform
             </h1>
-            <p class="text-xl text-slate-400 max-w-2xl mx-auto">
+            <p class="text-xl text-gray-300 max-w-2xl mx-auto">
                 Advanced machine learning pipeline for medical data preprocessing and analysis
             </p>
         </div>
@@ -138,38 +91,39 @@
         <!-- Upload Section -->
         <div class="glass rounded-2xl p-8 mb-8 animate-slide-up shadow-2xl">
             <div class="flex items-center mb-6">
-                <div class="w-10 h-10 bg-accent-500 rounded-xl flex items-center justify-center mr-4">
-                    <svg class="w-5 h-5 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <div class="w-10 h-10 bg-white rounded-xl flex items-center justify-center mr-4">
+                    <svg class="w-5 h-5 text-black" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 16a4 4 0 01-.88-7.903A5 5 0 1115.9 6L16 6a5 5 0 011 9.9M15 13l-3-3m0 0l-3 3m3-3v12"></path>
                     </svg>
                 </div>
                 <h2 class="text-2xl font-semibold text-white">Upload Dataset</h2>
             </div>
             
-            <div class="border-2 border-dashed border-slate-600 rounded-xl p-12 text-center bg-slate-800/30 hover:bg-slate-800/50 transition-all duration-300 hover:border-accent-500">
+            <div class="border-2 border-dashed border-gray-600 rounded-xl p-12 text-center bg-gray-900/30 hover:bg-gray-800/50 transition-all duration-300 hover:border-white group"
+                 id="uploadContainer">
                 <input type="file" id="csvFile" accept=".csv" class="hidden" />
                 <div id="uploadArea" class="cursor-pointer">
-                    <div class="w-16 h-16 bg-slate-700 rounded-2xl flex items-center justify-center mx-auto mb-6 group-hover:bg-accent-500 transition-colors">
-                        <svg class="w-8 h-8 text-slate-400" stroke="currentColor" fill="none" viewBox="0 0 48 48">
+                    <div class="w-16 h-16 bg-gray-800 rounded-2xl flex items-center justify-center mx-auto mb-6 group-hover:bg-white transition-all duration-300">
+                        <svg class="w-8 h-8 text-gray-400 group-hover:text-black transition-all duration-300 upload-icon" stroke="currentColor" fill="none" viewBox="0 0 48 48">
                             <path d="M28 8H12a4 4 0 00-4 4v20m32-12v8m0 0v8a4 4 0 01-4-4H12a4 4 0 01-4-4v-4m28 18H12" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
                         </svg>
                     </div>
                     <div class="space-y-2">
-                        <span class="text-lg cursor-pointer font-medium text-accent-400 hover:text-accent-300 transition-colors">
+                        <span class="text-lg cursor-pointer font-medium text-white hover:text-gray-300 transition-colors">
                             Choose CSV file
                         </span>
-                        <p class="text-slate-400">or drag and drop your dataset here</p>
-                        <p class="text-sm text-slate-500">Maximum file size: 16MB</p>
+                        <p class="text-gray-400">or drag and drop your dataset here</p>
+                        <p class="text-sm text-gray-500">Maximum file size: 16MB</p>
                     </div>
                 </div>
             </div>
             
-            <div id="fileInfo" class="hidden mt-6 p-4 bg-emerald-900/30 border border-emerald-700/50 rounded-xl">
+            <div id="fileInfo" class="hidden mt-6 p-4 bg-gray-800/50 border border-gray-600 rounded-xl">
                 <div class="flex items-center">
-                    <svg class="h-5 w-5 text-emerald-400 mr-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <svg class="h-5 w-5 text-green-400 mr-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
                     </svg>
-                    <span id="fileName" class="text-emerald-300 font-medium"></span>
+                    <span id="fileName" class="text-green-300 font-medium"></span>
                 </div>
             </div>
         </div>
@@ -177,22 +131,22 @@
         <!-- Data Preview -->
         <div id="dataPreview" class="glass rounded-2xl p-8 mb-8 hidden animate-slide-up shadow-2xl">
             <div class="flex items-center mb-6">
-                <div class="w-10 h-10 bg-purple-500 rounded-xl flex items-center justify-center mr-4">
-                    <svg class="w-5 h-5 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <div class="w-10 h-10 bg-white rounded-xl flex items-center justify-center mr-4">
+                    <svg class="w-5 h-5 text-black" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"></path>
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z"></path>
                     </svg>
                 </div>
                 <h2 class="text-2xl font-semibold text-white">Data Preview</h2>
             </div>
-            <div id="previewContent" class="bg-slate-800/50 rounded-xl p-4 overflow-auto"></div>
+            <div id="previewContent" class="bg-gray-800/50 rounded-xl p-4 overflow-auto"></div>
         </div>
 
         <!-- Pipeline Selection -->
         <div class="glass rounded-2xl p-8 mb-8 animate-slide-up shadow-2xl">
             <div class="flex items-center mb-8">
-                <div class="w-10 h-10 bg-indigo-500 rounded-xl flex items-center justify-center mr-4">
-                    <svg class="w-5 h-5 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <div class="w-10 h-10 bg-white rounded-xl flex items-center justify-center mr-4">
+                    <svg class="w-5 h-5 text-black" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19.428 15.428a2 2 0 00-1.022-.547l-2.387-.477a6 6 0 00-3.86.517l-.318.158a6 6 0 01-3.86.517L6.05 15.21a2 2 0 00-1.806.547M8 4h8l-1 1v5.172a2 2 0 00.586 1.414l5 5c1.26 1.26.367 3.414-1.415 3.414H4.828c-1.782 0-2.674-2.154-1.414-3.414l5-5A2 2 0 009 10.172V5L8 4z"></path>
                     </svg>
                 </div>
@@ -201,58 +155,58 @@
             
             <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 mb-8">
                 <!-- Step 1: Missing Values -->
-                <div class="card-gradient border border-slate-600/50 rounded-xl p-6 hover:border-accent-500/50 cursor-pointer transition-all duration-300 hover:shadow-xl hover:shadow-accent-500/10 group" data-step="1">
+                <div class="card-gradient border border-gray-600/50 rounded-xl p-6 hover:border-white cursor-pointer transition-all duration-300 hover:shadow-xl hover:shadow-white/10 group" data-step="1">
                     <div class="text-center">
-                        <div class="bg-blue-500 text-white rounded-full w-14 h-14 flex items-center justify-center mx-auto mb-4 group-hover:scale-110 transition-transform">
+                        <div class="bg-gray-700 text-white rounded-full w-14 h-14 flex items-center justify-center mx-auto mb-4 group-hover:bg-white group-hover:text-black transition-all duration-300">
                             <span class="font-bold text-lg">1</span>
                         </div>
                         <h3 class="font-semibold text-white mb-3 text-lg">Missing Values</h3>
-                        <p class="text-sm text-slate-400 leading-relaxed">Analyze and detect missing values in your dataset</p>
+                        <p class="text-sm text-gray-400 leading-relaxed">Analyze and detect missing values in your dataset</p>
                     </div>
                 </div>
                 
                 <!-- Step 2: MinMax Scaling -->
-                <div class="card-gradient border border-slate-600/50 rounded-xl p-6 hover:border-accent-500/50 cursor-pointer transition-all duration-300 hover:shadow-xl hover:shadow-accent-500/10 group" data-step="2">
+                <div class="card-gradient border border-gray-600/50 rounded-xl p-6 hover:border-white cursor-pointer transition-all duration-300 hover:shadow-xl hover:shadow-white/10 group" data-step="2">
                     <div class="text-center">
-                        <div class="bg-emerald-500 text-white rounded-full w-14 h-14 flex items-center justify-center mx-auto mb-4 group-hover:scale-110 transition-transform">
+                        <div class="bg-gray-600 text-white rounded-full w-14 h-14 flex items-center justify-center mx-auto mb-4 group-hover:bg-white group-hover:text-black transition-all duration-300">
                             <span class="font-bold text-lg">2</span>
                         </div>
                         <h3 class="font-semibold text-white mb-3 text-lg">MinMax Scaling</h3>
-                        <p class="text-sm text-slate-400 leading-relaxed">Normalize data using MinMax scaling technique</p>
+                        <p class="text-sm text-gray-400 leading-relaxed">Normalize data using MinMax scaling technique</p>
                     </div>
                 </div>
                 
                 <!-- Step 3: Feature Selection -->
-                <div class="card-gradient border border-slate-600/50 rounded-xl p-6 hover:border-accent-500/50 cursor-pointer transition-all duration-300 hover:shadow-xl hover:shadow-accent-500/10 group" data-step="3">
+                <div class="card-gradient border border-gray-600/50 rounded-xl p-6 hover:border-white cursor-pointer transition-all duration-300 hover:shadow-xl hover:shadow-white/10 group" data-step="3">
                     <div class="text-center">
-                        <div class="bg-amber-500 text-white rounded-full w-14 h-14 flex items-center justify-center mx-auto mb-4 group-hover:scale-110 transition-transform">
+                        <div class="bg-gray-500 text-white rounded-full w-14 h-14 flex items-center justify-center mx-auto mb-4 group-hover:bg-white group-hover:text-black transition-all duration-300">
                             <span class="font-bold text-lg">3</span>
                         </div>
                         <h3 class="font-semibold text-white mb-3 text-lg">Feature Selection</h3>
-                        <p class="text-sm text-slate-400 leading-relaxed">Select relevant features using ANOVA analysis</p>
+                        <p class="text-sm text-gray-400 leading-relaxed">Select relevant features using ANOVA analysis</p>
                     </div>
                 </div>
                 
                 <!-- Step 4: SMOTE -->
-                <div class="card-gradient border border-slate-600/50 rounded-xl p-6 hover:border-accent-500/50 cursor-pointer transition-all duration-300 hover:shadow-xl hover:shadow-accent-500/10 group" data-step="4">
+                <div class="card-gradient border border-gray-600/50 rounded-xl p-6 hover:border-white cursor-pointer transition-all duration-300 hover:shadow-xl hover:shadow-white/10 group" data-step="4">
                     <div class="text-center">
-                        <div class="bg-purple-500 text-white rounded-full w-14 h-14 flex items-center justify-center mx-auto mb-4 group-hover:scale-110 transition-transform">
+                        <div class="bg-gray-800 text-white rounded-full w-14 h-14 flex items-center justify-center mx-auto mb-4 group-hover:bg-white group-hover:text-black transition-all duration-300">
                             <span class="font-bold text-lg">4</span>
                         </div>
                         <h3 class="font-semibold text-white mb-3 text-lg">Data Balancing</h3>
-                        <p class="text-sm text-slate-400 leading-relaxed">Balance dataset using SMOTE algorithm</p>
+                        <p class="text-sm text-gray-400 leading-relaxed">Balance dataset using SMOTE algorithm</p>
                     </div>
                 </div>
             </div>
             
             <!-- Process Button -->
             <div class="text-center">
-                <button id="processBtn" class="bg-gradient-to-r from-accent-500 to-accent-600 hover:from-accent-600 hover:to-accent-700 text-white font-semibold py-4 px-10 rounded-xl disabled:from-slate-600 disabled:to-slate-700 disabled:cursor-not-allowed transition-all duration-300 shadow-lg hover:shadow-xl hover:shadow-accent-500/25 transform hover:scale-105 disabled:transform-none" disabled>
+                <button id="processBtn" class="bg-white text-black hover:bg-gray-100 font-semibold py-4 px-10 rounded-xl disabled:bg-gray-600 disabled:text-gray-400 disabled:cursor-not-allowed transition-all duration-300 shadow-lg hover:shadow-xl hover:shadow-white/25 transform hover:scale-105 disabled:transform-none" disabled>
                     <span id="btnText" class="text-lg">Process Selected Step</span>
                     <div id="loadingSpinner" class="hidden inline-block ml-3">
-                        <svg class="animate-spin h-5 w-5 text-white" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+                        <svg class="animate-spin h-5 w-5 text-black" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
                             <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
-                            <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+                            <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 8 8 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
                         </svg>
                     </div>
                 </button>
@@ -262,18 +216,18 @@
         <!-- Results Section -->
         <div id="resultsSection" class="glass rounded-2xl p-8 hidden animate-slide-up shadow-2xl">
             <div class="flex items-center mb-6">
-                <div class="w-10 h-10 bg-green-500 rounded-xl flex items-center justify-center mr-4">
-                    <svg class="w-5 h-5 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <div class="w-10 h-10 bg-white rounded-xl flex items-center justify-center mr-4">
+                    <svg class="w-5 h-5 text-black" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z"></path>
                     </svg>
                 </div>
                 <h2 class="text-2xl font-semibold text-white">Processing Results</h2>
             </div>
-            <div id="resultsContent" class="bg-slate-800/50 rounded-xl p-6"></div>
+            <div id="resultsContent" class="bg-gray-800/50 rounded-xl p-6"></div>
         </div>
 
         <!-- Footer -->
-        <div class="text-center mt-12 text-slate-500">
+        <div class="text-center mt-12 text-gray-500">
             <p>&copy; 2025 Cervical Cancer Risk Analysis Platform. Advanced ML Pipeline.</p>
         </div>
     </div>
