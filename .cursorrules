@@ -1,0 +1,63 @@
+You are a senior developer Flask Python specializing in machine learning data preprocessing pipelines.
+
+## Project Context
+This is a cervical cancer risk analysis platform with a 4-step preprocessing pipeline:
+1. Missing value analysis (pandas)
+2. MinMax scaling (scikit-learn)
+3. ANOVA feature selection (scikit-learn)
+4. SMOTE data balancing (imbalanced-learn)
+
+## Code Standards
+
+### Flask Application Structure
+- Use Flask 3.0.0 with proper route decorators
+- Implement comprehensive error handling with try-catch blocks
+- Use logging for debugging and monitoring
+- Validate file uploads with allowed_file() function
+- Return JSON responses with proper HTTP status codes
+- Use secure_filename() for file handling
+
+### Data Processing Functions
+- Each module should have dual-mode: console output and JSON API
+- Use return_json parameter to control output format
+- Implement convert_numpy_types() helper for JSON serialization
+- Handle pandas NaN, numpy types, and missing values properly
+- Save outputs to structured folders (uploads/, output/)
+- Include summary statistics and detailed analysis tables
+
+### Frontend Integration
+- Generate base64-encoded charts using matplotlib and io.BytesIO
+- Provide sample data tables for web display
+- Include download links for CSV results
+- Design responsive tables with limited columns for readability
+- Use semantic color coding for data visualization
+
+### Error Handling
+- Catch exceptions at route and function level
+- Log detailed error messages with context
+- Return user-friendly error messages in JSON
+- Validate file existence and permissions
+- Handle empty datasets and edge cases
+
+### Data Pipeline Flow
+- Sequential processing: Missing → Scaling → Feature Selection → Balancing
+- Use consistent parameters: path, target="Biopsy", return_json=False
+- Apply imputation with SimpleImputer(strategy="median")
+- Use MinMaxScaler for normalization range [0,1]
+- Apply SelectKBest with f_classif for statistical feature selection
+- Use SMOTE(random_state=42) for reproducible class balancing
+
+### Code Organization
+- Modular structure with separate files for each processing step
+- Consistent function naming: step1_missing_value, step2_minmax_scaler, etc.
+- Document functions with docstrings including Args and Returns
+- Use os.makedirs("output", exist_ok=True) for directory management
+- Maintain original console behavior for compatibility
+
+### Dependencies Management
+- Specify exact versions in requirements.txt
+- Import in logical order: pandas, numpy, sklearn, matplotlib, flask
+- Use aliases for long package names
+- Include imbalanced-learn for SMOTE functionality
+
+Always maintain consistency with existing code patterns and ensure web API compatibility while preserving original functionality.

@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cervical Cancer Risk Analysis Platform</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@100;200;300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        'poppins': ['Poppins', 'sans-serif'],
+                    }
+                }
+            }
+        }
+    </script>
+</head>
+<body class="bg-gray-50 min-h-screen font-poppins">
+    <div class="max-w-6xl mx-auto px-4 py-8">
+        <!-- Header -->
+        <div class="text-center mb-8">
+            <h1 class="text-4xl font-bold text-gray-800 mb-2">Cervical Cancer Risk Analysis Platform</h1>
+            <p class="text-gray-600">Upload your CSV data and run preprocessing pipeline</p>
+        </div>
+
+        <!-- Upload Section -->
+        <div class="bg-white rounded-lg shadow-md p-6 mb-8">
+            <h2 class="text-2xl font-semibold text-gray-800 mb-4">Upload Dataset</h2>
+            
+            <div class="border-2 border-dashed border-gray-300 rounded-lg p-8 text-center bg-gray-50">
+                <input type="file" id="csvFile" accept=".csv" class="hidden" />
+                <div id="uploadArea" class="cursor-pointer">
+                    <svg class="mx-auto h-12 w-12 text-gray-400" stroke="currentColor" fill="none" viewBox="0 0 48 48">
+                        <path d="M28 8H12a4 4 0 00-4 4v20m32-12v8m0 0v8a4 4 0 01-4-4H12a4 4 0 01-4-4v-4m28 18H12" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+                    </svg>
+                    <div class="mt-4">
+                        <label for="csvFile" class="text-sm cursor-pointer font-medium text-indigo-600 hover:text-indigo-500">
+                            Choose CSV file
+                        </label>
+                        <p class="text-sm text-gray-500">or drag and drop CSV file here</p>
+                    </div>
+                </div>
+            </div>
+            
+            <div id="fileInfo" class="hidden mt-4 p-4 bg-green-50 border border-green-200 rounded-lg">
+                <div class="flex items-center">
+                    <svg class="h-5 w-5 text-green-500 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
+                    </svg>
+                    <span id="fileName" class="text-sm text-green-700"></span>
+                </div>
+            </div>
+        </div>
+
+        <!-- Data Preview -->
+        <div id="dataPreview" class="bg-white rounded-lg shadow-md p-6 mb-8 hidden">
+            <h2 class="text-2xl font-semibold text-gray-800 mb-4">Data Preview</h2>
+            <div id="previewContent"></div>
+        </div>
+
+        <!-- Pipeline Selection -->
+        <div class="bg-white rounded-lg shadow-md p-6 mb-8">
+            <h2 class="text-2xl font-semibold text-gray-800 mb-4">Select Processing Step</h2>
+            
+            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3 mb-6">
+                <!-- Step 1: Missing Values -->
+                <div class="border border-gray-200 rounded-lg p-4 hover:bg-gray-50 cursor-pointer" data-step="1">
+                    <div class="text-center">
+                        <div class="bg-blue-100 text-blue-800 rounded-full w-12 h-12 flex items-center justify-center mx-auto mb-3">
+                            <span class="font-bold">1</span>
+                        </div>
+                        <h3 class="font-semibold text-gray-800 mb-2">Missing Values</h3>
+                        <p class="text-sm text-gray-600">Analyze and detect missing values in dataset</p>
+                    </div>
+                </div>
+                
+                <!-- Step 2: MinMax Scaling -->
+                <div class="border border-gray-200 rounded-lg p-4 hover:bg-gray-50 cursor-pointer" data-step="2">
+                    <div class="text-center">
+                        <div class="bg-green-100 text-green-800 rounded-full w-12 h-12 flex items-center justify-center mx-auto mb-3">
+                            <span class="font-bold">2</span>
+                        </div>
+                        <h3 class="font-semibold text-gray-800 mb-2">MinMax Scaling</h3>
+                        <p class="text-sm text-gray-600">Normalize data using MinMax scaling</p>
+                    </div>
+                </div>
+                
+                <!-- Step 3: Feature Selection -->
+                <div class="border border-gray-200 rounded-lg p-4 hover:bg-gray-50 cursor-pointer" data-step="3">
+                    <div class="text-center">
+                        <div class="bg-yellow-100 text-yellow-800 rounded-full w-12 h-12 flex items-center justify-center mx-auto mb-3">
+                            <span class="font-bold">3</span>
+                        </div>
+                        <h3 class="font-semibold text-gray-800 mb-2">Feature Selection</h3>
+                        <p class="text-sm text-gray-600">Select relevant features using ANOVA</p>
+                    </div>
+                </div>
+                
+                <!-- Step 4: SMOTE -->
+                <div class="border border-gray-200 rounded-lg p-4 hover:bg-gray-50 cursor-pointer" data-step="4">
+                    <div class="text-center">
+                        <div class="bg-purple-100 text-purple-800 rounded-full w-12 h-12 flex items-center justify-center mx-auto mb-3">
+                            <span class="font-bold">4</span>
+                        </div>
+                        <h3 class="font-semibold text-gray-800 mb-2">Data Balancing</h3>
+                        <p class="text-sm text-gray-600">Balance dataset using SMOTE</p>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Process Button -->
+            <div class="text-center">
+                <button id="processBtn" class="bg-blue-600 hover:bg-blue-700 text-white font-bold py-3 px-8 rounded-lg disabled:bg-gray-400 disabled:cursor-not-allowed" disabled>
+                    <span id="btnText">Process Selected Step</span>
+                    <div id="loadingSpinner" class="hidden inline-block ml-2">
+                        <svg class="animate-spin h-5 w-5 text-white" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+                            <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
+                            <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+                    </div>
+                </button>
+            </div>
+        </div>
+
+        <!-- Results Section -->
+        <div id="resultsSection" class="bg-white rounded-lg shadow-md p-4 lg:p-6 hidden">
+            <h2 class="text-xl lg:text-2xl font-semibold text-gray-800 mb-3 lg:mb-4">Processing Results</h2>
+            <div id="resultsContent" class="text-sm lg:text-base"></div>
+        </div>
+
+    </div>
+
+    <!-- Alert Container -->
+    <div id="alertContainer" class="fixed top-4 right-4 z-50"></div>
+
+    <script src="{{ url_for('static', filename='js/utils.js') }}"></script>
+    <script src="{{ url_for('static', filename='js/fileUpload.js') }}"></script>
+    <script src="{{ url_for('static', filename='js/dataPreview.js') }}"></script>
+    <script src="{{ url_for('static', filename='js/stepSelector.js') }}"></script>
+    <script src="{{ url_for('static', filename='js/processor.js') }}"></script>
+    <script src="{{ url_for('static', filename='js/resultsDisplay.js') }}"></script>
+    <script src="{{ url_for('static', filename='js/main.js') }}"></script>
+</body>
+</html>
